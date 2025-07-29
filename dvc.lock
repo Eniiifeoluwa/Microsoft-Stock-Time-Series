@@ -20,3 +20,27 @@ stages:
       hash: md5
       md5: ace6dc34fc234cf888a2d4c898928679
       size: 81994
+  split_data:
+    cmd: python src/split_data.py --config=params.yaml
+    deps:
+    - path: data/raw/Microsoft_Stock.csv
+      hash: md5
+      md5: ace6dc34fc234cf888a2d4c898928679
+      size: 81994
+    - path: src/get_data.py
+      hash: md5
+      md5: e8c1f046df5646a283b065b20ad7320f
+      size: 626
+    - path: src/split_data.py
+      hash: md5
+      md5: dd54fe5a611fb30a68c80356931be7f6
+      size: 1000
+    outs:
+    - path: data/processed/test_Microsoft_Stock.csv
+      hash: md5
+      md5: 212874ca1c77e834aa39f8e5f171bbf8
+      size: 17075
+    - path: data/processed/train_Microsoft_Stock.csv
+      hash: md5
+      md5: 1dbaea6d6f73af4350daa354dba17374
+      size: 64952

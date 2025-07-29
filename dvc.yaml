@@ -7,4 +7,12 @@ stages:
     - "original dataset/Microsoft_Stock.csv"
     outs:
     - data/raw/Microsoft_Stock.csv
-
+  split_data:
+    cmd: python src/split_data.py --config=params.yaml
+    deps:
+    - src/split_data.py
+    - src/get_data.py
+    - data/raw/Microsoft_Stock.csv
+    outs:
+    - data/processed/test_Microsoft_Stock.csv
+    - data/processed/train_Microsoft_Stock.csv
