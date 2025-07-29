@@ -1,0 +1,5 @@
+outs:
+- md5: 11a95aeb0c823921330893d30f876417
+  size: 81704
+  hash: md5
+  path: Microsoft_Stock.csv
