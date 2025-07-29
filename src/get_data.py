@@ -13,7 +13,7 @@ def get_data(config_path):
     config = read_params(config_path)
     data_frame = config["data_source"]["s3_source"]
     data_frame = pd.read_csv(data_frame)
-    print(data_frame.head(5))
+    return data_frame
 
 
 if __name__== "__main__":

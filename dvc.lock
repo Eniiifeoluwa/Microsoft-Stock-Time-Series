@@ -1,0 +1,22 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python src/load_data.py --config=params.yaml
+    deps:
+    - path: original dataset/Microsoft_Stock.csv
+      hash: md5
+      md5: 11a95aeb0c823921330893d30f876417
+      size: 81704
+    - path: src/get_data.py
+      hash: md5
+      md5: e8c1f046df5646a283b065b20ad7320f
+      size: 626
+    - path: src/load_data.py
+      hash: md5
+      md5: 37d195a579db82e1dc8f36b439a7b1c0
+      size: 560
+    outs:
+    - path: data/raw/Microsoft_Stock.csv
+      hash: md5
+      md5: ace6dc34fc234cf888a2d4c898928679
+      size: 81994
