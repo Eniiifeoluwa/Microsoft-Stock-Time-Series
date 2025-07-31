@@ -23,10 +23,9 @@ stages:
     - data/processed/train_Microsoft_Stock.csv
     - src/train_and_evaluate.py
     outs:
-    - saved_model/stock_model.pt
+    - saved_model/model.joblib
     metrics:
+     
       - report/scores.json:
-          cache: false
-      - report/params.json:
           cache: false
 

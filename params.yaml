@@ -15,8 +15,9 @@ split_data:
   test_size: 0.8
 
 estimators:
-  model:
-    epoch: 50
-    learning_rate = 0.01
+  model: LinearRegression
 
-model_dir: saved_model/model.pth
+model_dir: saved_model/model.joblib
+
+report: 
+  scores: report/scores.json

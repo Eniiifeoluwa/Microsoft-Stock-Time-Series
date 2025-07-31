@@ -5,40 +5,47 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, r2_score
 import pandas as pd
 import numpy as np
-import torch
-import torch.nn as nn
+from sklearn.linear_model import LinearRegression
+import joblib
+import json
+
+def evaluate(y_pred, y_true):
+    rmse = np.sqrt(mean_squared_error(y_pred.reshape(-1, 1), y_true))
+    mse = mean_squared_error(y_pred.reshape(-1, 1), y_true)
+    r2 = r2_score(y_pred.reshape(-1, 1), y_true)
+    return rmse, mse, r2
+
 
 
 def train_and_evaluate(config_path):
     config = read_params(config_path)
-    training_set = config["split_data"]["train_data"]
-    testing_set = config["split_data"]["test_data"]
+    training_path = config["split_data"]["train_path"]
+    testing_path = config["split_data"]["test_path"]
+    model_path = config["model_dir"]  
+    target = config['base']['target_col']
+    training_set = pd.read_csv(training_path)
+    testing_set = pd.read_csv(testing_path)
+    training_set.set_index('Date', inplace= True)
+    testing_set.set_index('Date', inplace= True)
+    X_train, Y_train = training_set.drop(columns= [target]), training_set[target]
+    X_test, Y_test = testing_set.drop(columns= [target]), testing_set[target]
+    scaler = MinMaxScaler()
+    X_scaled = scaler.fit_transform(X_train.values)
+    model = LinearRegression()
+    model.fit(X_scaled, Y_train)
+    joblib.dump(model, model_path)
 
-
-    scaler = MinMaxScaler(feature_range=(0, 1))
-    training_set_scaled = scaler.transform(training_set[['Close']])
-    X_train, y_train = [], []
-    for i in range(60, len(training_set_scaled)):
-        X_train.append(training_set_scaled[i-60:i, 0])
-        y_train.append(training_set_scaled[i, 0])
-    X_train, y_train = np.array(X_train), np.array(y_train)
-    X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
-    model = LSTMModel(input_size=1, hidden_size=50, num_layers=2)
-    criterion = nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
-    num_epochs = 500
-    for epoch in range(num_epochs):
-        model.train()
-        optimizer.zero_grad()
-        outputs = model(torch.from_numpy(X_train).float())
-        loss = criterion(outputs, torch.from_numpy(y_train).float())
-        loss.backward()
-        optimizer.step()
-        if (epoch+1) % 50 == 0:
-            print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
-    model.eval()
-    with torch.no_grad():
-        test_preds = scaler.transform(X)
+    X_test_scaled = scaler.transform(X_test.values)
+    Y_pred = model.predict(X_test_scaled)
+    rmse, mse, r2 = evaluate(Y_pred, Y_test)
+    score_file = config['report']['scores']
+    with open(score_file, 'w') as f:
+        scores= {
+            'RMSE': rmse,
+            'MSE': mse,
+            'R2': r2
+            }
+        json.dump(scores, f, indent= 4)
 
 if __name__ == "__main__":
     import argparse

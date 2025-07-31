@@ -55,3 +55,16 @@ stages:
       hash: md5
       md5: 1dbaea6d6f73af4350daa354dba17374
       size: 64952
+    - path: src/train_and_evaluate.py
+      hash: md5
+      md5: 8612fad1634c5d18ddf940c344db51a3
+      size: 2051
+    outs:
+    - path: report/scores.json
+      hash: md5
+      md5: e1b499724e14dbd10939adcadd39b585
+      size: 99
+    - path: saved_model/model.joblib
+      hash: md5
+      md5: b0052cd371a9181acb604f2f995f7226
+      size: 616
