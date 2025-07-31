@@ -44,3 +44,14 @@ stages:
       hash: md5
       md5: 1dbaea6d6f73af4350daa354dba17374
       size: 64952
+  train_and_evaluate:
+    cmd: python src/train_and_evaluate.py --config=params.yaml
+    deps:
+    - path: data/processed/test_Microsoft_Stock.csv
+      hash: md5
+      md5: 212874ca1c77e834aa39f8e5f171bbf8
+      size: 17075
+    - path: data/processed/train_Microsoft_Stock.csv
+      hash: md5
+      md5: 1dbaea6d6f73af4350daa354dba17374
+      size: 64952
