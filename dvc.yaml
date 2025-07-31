@@ -24,8 +24,9 @@ stages:
     - src/train_and_evaluate.py
     outs:
     - saved_model/model.joblib
-    metrics:
-     
+    metrics: 
       - report/scores.json:
+          cache: false
+      - report/params.json:
           cache: false
 

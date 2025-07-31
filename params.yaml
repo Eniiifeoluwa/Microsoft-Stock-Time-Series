@@ -15,9 +15,13 @@ split_data:
   test_size: 0.8
 
 estimators:
-  model: LinearRegression
+  model: Elasticnet
+  params:
+    l1_ratio : 0.9
+    alpha: 0.8
 
 model_dir: saved_model/model.joblib
 
 report: 
   scores: report/scores.json
+  params: report/params.json
