@@ -22,7 +22,11 @@ stages:
     - data/processed/test_Microsoft_Stock.csv
     - data/processed/train_Microsoft_Stock.csv
     - src/train_and_evaluate.py
-    params:
-    - 
     outs:
-    - saved_model/stock_model.joblib
+    - saved_model/stock_model.pt
+    metrics:
+      - report/scores.json:
+          cache: false
+      - report/params.json:
+          cache: false
+
