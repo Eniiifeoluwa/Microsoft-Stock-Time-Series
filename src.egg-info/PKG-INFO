@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: src
+Version: 0.0.0.0
+Summary: This is a Microsoft Time Series project.
+Author: Akinola Afolabi
+Author-email: akinolaayomide226@gmail.com
+License: MIT
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: license
+Dynamic: license-file
+Dynamic: summary
