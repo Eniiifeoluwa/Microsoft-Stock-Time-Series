@@ -20,7 +20,9 @@ estimators:
     l1_ratio : 0.9
     alpha: 0.8
 
-model_dir: saved_model/model.joblib
+model_dir: 
+  model: saved_model/model.joblib
+  scaler: saved_model/scaler.joblib
 
 report: 
   scores: report/scores.json

@@ -21,7 +21,8 @@ def train_and_evaluate(config_path):
     config = read_params(config_path)
     training_path = config["split_data"]["train_path"]
     testing_path = config["split_data"]["test_path"]
-    model_path = config["model_dir"]  
+    model_path = config["model_dir"]['model'] 
+    scaler_path = config['model_dir']['scaler']
     target = config['base']['target_col']
     training_set = pd.read_csv(training_path)
     testing_set = pd.read_csv(testing_path)
@@ -36,6 +37,7 @@ def train_and_evaluate(config_path):
     model = LinearRegression()
     model.fit(X_scaled, Y_train)
     joblib.dump(model, model_path)
+    joblib.dump(scaler, scaler_path)
 
     X_test_scaled = scaler.transform(X_test.values)
     Y_pred = model.predict(X_test_scaled)

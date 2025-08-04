@@ -1,5 +1,6 @@
 dvc
+-e.
 #dvc[gdrive]
 pytest
 tox
-#-e.
+flake8
