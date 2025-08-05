@@ -4,3 +4,5 @@ dvc
 pytest
 tox
 flake8
+joblib
+pandas
