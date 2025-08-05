@@ -14,10 +14,10 @@ target_data = {'min': 101612,
 
 
 
-#def test_difference(data = input_data['original_data']):
-#    new_data = np.array([list(data.values())])
-#    res = predict(new_data)
-#    assert target_data['min'] <= res[0] <= target_data['max']
+def test_difference(data = input_data['original_data']):
+    new_data = np.array([list(data.values())])
+    res = predict(new_data)
+    assert target_data['min'] <= res[0] <= target_data['max']
 
 
 
