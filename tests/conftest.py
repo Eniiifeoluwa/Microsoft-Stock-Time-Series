@@ -14,5 +14,5 @@ def config(config_path = 'params.yaml'):
 
 def get_schema(schema_path = 'schema_in.json'):
     with open(schema_path) as s:
-        schema = json.load(schema)
+        schema = json.load(s)
     return schema
