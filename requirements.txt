@@ -6,3 +6,6 @@ tox
 flake8
 joblib
 pandas
+scikit-learn
+numpy
+requests
