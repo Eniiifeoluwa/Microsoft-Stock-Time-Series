@@ -27,3 +27,5 @@ model_dir:
 report: 
   scores: report/scores.json
   params: report/params.json
+schema:
+  schema_in: predictions/schema_in.json

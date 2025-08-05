@@ -1,14 +1,23 @@
 import  pytest
+from predictions.predict import predict
+import numpy as np
+input_data = {'original_data':
+    {'Open': 40.6,
+    'High': 40.76,
+    'Low': 40.31,
+    'Close': 40.72},
 
-class NotInRange(Exception):
-    def __init__(self, message = 'Not in range at all!'):
-        self.message = message
-        super(NotInRange, self).__init__(self.message)
+}
+
+target_data = {'min': 101612,
+               'max': 135227059}
 
 
 
-def test_generic():
-    a = 5
-    with pytest.raises(NotInRange):
-        if a not in range(10, 15):
-            raise NotInRange
+def test_difference(data = input_data['original_data']):
+    new_data = np.array([list(data.values())])
+    res = predict(new_data)
+    assert target_data['min'] <= res[0] <= target_data['max']
+
+
+

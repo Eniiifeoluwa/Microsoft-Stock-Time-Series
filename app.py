@@ -3,18 +3,12 @@ import joblib
 import numpy as np
 from src.get_data import read_params
 import argparse
+from predictions.predict import predict
 
 
 def run_prediction(config_path):
     st.title('THIS IS A LINEAR REGRESSION PROBLEM')
-    config = read_params(config_path= config_path)
     
-    model_path = config['model_dir']['model']
-    scaler_path = config['model_dir']['scaler']
-    with open(model_path, 'rb') as r:
-        model = joblib.load(r)
-    with open(scaler_path, 'rb') as s:
-        scaler = joblib.load(s)
     st.write("Enter the values to forecast.")
     close = st.slider("Close", min_value = 20.0, max_value = 50.0, step = 1.0)
     opened = st.slider("Open", min_value = 20.0, max_value = 50.0, step = 1.0)
@@ -23,8 +17,7 @@ def run_prediction(config_path):
 
     if st.button('Predict'):
         features = np.array([[opened, high, low, close]])
-        features= scaler.transform(features)
-        prediction = model.predict(features)
+        prediction = predict(features)
         st.write(f"The predicted volume is: {prediction[0]}")
 if __name__ == '__main__':
     argpaser = argparse.ArgumentParser()
